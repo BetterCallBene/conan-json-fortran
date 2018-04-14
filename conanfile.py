@@ -11,6 +11,12 @@ class JsonfortranConan(ConanFile):
     generators = "cmake"
     exports_sources = ["src/*"]
 
+    def source(self):
+        tools.replace_in_file("src/CMakeLists.txt", "project ( jsonfortran NONE )",
+                              '''project(json-fortran NONE)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()''')
+
     def build(self):
         cmake = CMake(self)
         cmake.configure(source_folder="src")
