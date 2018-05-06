@@ -11,10 +11,6 @@ class JsonfortranConan(ConanFile):
     generators = "cmake"
     exports_sources = ["src/*"]
 
-    def build_requirements(self):
-        if self.settings.arch == "armv8":
-            self.build_requires("CrossGccConan/5.4.0@php/stable")
-
     def source(self):
         tools.replace_in_file("src/CMakeLists.txt", "string ( TOLOWER ${CMAKE_PROJECT_NAME}-${CMAKE_Fortran_COMPILER_ID} PACKAGE_NAME )", 
                    "string ( TOLOWER ${CMAKE_PROJECT_NAME} PACKAGE_NAME )")
